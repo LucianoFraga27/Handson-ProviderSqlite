@@ -1,8 +1,18 @@
 
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:synchronized/synchronized.dart';
+
 class SqliteConnectionFactory {
   
+  static const _VERSION = 1;
+  static const _DATABASE_NAME = 'TODO_LIST_PROVIDER';
+
   static SqliteConnectionFactory? _instance;
 
+  Database? _db; // classe que controla meu banco de dados | verifica se está aberto ou não
+  final _lock = Lock(); // é para trabalharmos com multi threads. | temos concorrencia de chamadas nos métodos;
+                       
   SqliteConnectionFactory._();
 
   factory SqliteConnectionFactory() {
@@ -13,5 +23,31 @@ class SqliteConnectionFactory {
     }
     return _instance!;
   }
+
+  Future<Database> openConnection() async {
+    var databasePath = await getDatabasesPath();
+    // essa lib path nos fornece o método join que pega e cria o nome do arquivo independente do device do usuário.
+    var databasePathFinal = join(databasePath, _DATABASE_NAME);
+    if (_db == null) {
+      // O processo de sincronizar é aguardar o processo acontecer. No caso o processo de conexão com DB
+    await _lock.synchronized(() async {
+      if (_db == null) {
+        // criando conexão com banco
+       _db = await openDatabase(
+       databasePathFinal,
+       version: _VERSION
+      );  
+      }
+    });
+    }
+    return _db!;
+  }
+
+  void closeConnection() {
+    _db?.close();
+    _db = null;
+  }
+
+  
 
 }
