@@ -35,7 +35,11 @@ class SqliteConnectionFactory {
         // criando conexão com banco
        _db = await openDatabase(
        databasePathFinal,
-       version: _VERSION
+       version: _VERSION,
+       onConfigure: _onConfigure,
+       onCreate: _onCreate,
+       onUpgrade: _onUpgrade,
+       onDowngrade: _onDowngrade
       );  
       }
     });
@@ -48,6 +52,11 @@ class SqliteConnectionFactory {
     _db = null;
   }
 
-  
+  Future<void> _onConfigure(Database db) async {
+    await db.execute('PRAGMA foreing_keys=ON');
+  }
+  Future<void> _onCreate(Database db, int version) async {}
+  Future<void> _onUpgrade(Database db, int oldVersion, int version) async {}
+  Future<void> _onDowngrade(Database db, int oldVersion, int version) async {}
 
 }
