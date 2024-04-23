@@ -11,7 +11,7 @@ class AppModule extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider(create: (_) => SqliteConnectionFactory(),
-        lazy: false, // lazy false significa que desejamos que o usuario crie suas migrations assim que executado
+        lazy: false, // lazy false significa que desejamos que o app crie suas migrations assim que executado
         )
       ],
       child: const AppWidget()
