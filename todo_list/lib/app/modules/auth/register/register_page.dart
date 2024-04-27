@@ -3,14 +3,17 @@ import 'package:todo_list/app/core/ui/theme_extensions.dart';
 import 'package:todo_list/app/core/widget/todo_list_field.dart';
 import 'package:todo_list/app/core/widget/todo_list_logo.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   
-  final _formKey = GlobalKey<FormState>();
-  
+
   RegisterPage({super.key});
 
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
 
-
+class _RegisterPageState extends State<RegisterPage> {
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
