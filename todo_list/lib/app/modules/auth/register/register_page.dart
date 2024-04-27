@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_list/app/core/ui/theme_extensions.dart';
 import 'package:todo_list/app/core/widget/todo_list_field.dart';
 import 'package:todo_list/app/core/widget/todo_list_logo.dart';
+import 'package:validatorless/validatorless.dart';
 
 class RegisterPage extends StatefulWidget {
   RegisterPage({super.key});
@@ -13,9 +14,9 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
 
-  final emailEC = TextEditingController();
-  final passwordEC = TextEditingController();
-  final confirmPasswordEC = TextEditingController();
+  final _emailEC = TextEditingController();
+  final _passwordEC = TextEditingController();
+  final _confirmPasswordEC = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +47,7 @@ class _RegisterPageState extends State<RegisterPage> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Form(
-        key: _formKey,
-        child: ListView(
+      body:  ListView(
           children: [
             SizedBox(
               height: MediaQuery.of(context).size.height / 4,
@@ -60,29 +59,46 @@ class _RegisterPageState extends State<RegisterPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
               child: Form(
+                key: _formKey,
                   child: Column(
                 children: [
                   TodoListField(
                     label: "Email",
-                    controller: emailEC,
+                    controller: _emailEC,
+                    validator: Validatorless.multiple([
+                      Validatorless.required("Email obrigatório"),
+                      Validatorless.email("Email inválido"),
+                    ]),
                   ),
                   const SizedBox(height: 20),
                   TodoListField(
                     label: "Senha",
                     obscureText: true,
-                    controller: passwordEC,
+                    controller: _passwordEC,
+                    validator: Validatorless.multiple([
+                      Validatorless.required("Senha obrigatória"),
+                      Validatorless.min(
+                          6, "Senha deve ter pelo menos 6 caracteres")
+                    ]),
                   ),
                   const SizedBox(height: 20),
                   TodoListField(
                     label: "Confirmar Senha",
                     obscureText: true,
-                    controller: confirmPasswordEC,
+                    controller: _confirmPasswordEC,
+                    validator: Validatorless.multiple([
+                      Validatorless.compare(
+                          _passwordEC, "As senhas não coincidem")
+                    ]),
                   ),
                   const SizedBox(height: 20),
                   Align(
                     alignment: Alignment.bottomRight,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        final _formValid = _formKey.currentState?.validate();
+                        
+                      },
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20))),
@@ -100,7 +116,7 @@ class _RegisterPageState extends State<RegisterPage> {
             )
           ],
         ),
-      ),
+     
     );
   }
 }
