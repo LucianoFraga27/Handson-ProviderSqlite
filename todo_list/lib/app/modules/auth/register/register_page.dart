@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/app/core/ui/theme_extensions.dart';
+import 'package:todo_list/app/core/widget/todo_list_field.dart';
+import 'package:todo_list/app/core/widget/todo_list_logo.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -11,8 +13,10 @@ class RegisterPage extends StatelessWidget {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Todo List", style: TextStyle(fontSize: 10, color: context.primaryColor)),
-            Text("Cadastro", style: TextStyle(fontSize: 14, color: context.primaryColor))
+            Text("Todo List",
+                style: TextStyle(fontSize: 10, color: context.primaryColor)),
+            Text("Cadastro",
+                style: TextStyle(fontSize: 14, color: context.primaryColor))
           ],
         ),
         automaticallyImplyLeading:
@@ -31,7 +35,53 @@ class RegisterPage extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Container(),
+      body: ListView(
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 4,
+            child: const FittedBox(
+              fit: BoxFit.fitHeight,
+              child: TodoListLogo(),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+            child: Form(
+                child: Column(
+              children: [
+                TodoListField(label: "Email"),
+                const SizedBox(height: 20),
+                TodoListField(
+                  label: "Senha",
+                  obscureText: true,
+                ),
+                const SizedBox(height: 20),
+                TodoListField(
+                  label: "Confirmar Senha",
+                  obscureText: true,
+                ),
+                const SizedBox(height: 20),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20))),
+                    child: const Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text(
+                        "Cadastrar",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            )),
+          )
+        ],
+      ),
     );
   }
 }
