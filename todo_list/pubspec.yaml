@@ -39,6 +39,7 @@ dependencies:
   provider: ^6.1.2
   path: ^1.8.3
   flutter_signin_button: ^2.0.0 # podemos utilizar o sing_in_button v3.0.0 como alternativa
+  firebase_auth: ^4.17.8
 
 dev_dependencies:
   flutter_test:

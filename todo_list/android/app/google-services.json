@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "180355594120",
+    "project_id": "todo-list-provider-34f45",
+    "storage_bucket": "todo-list-provider-34f45.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180355594120:android:0c729784fbe98c39d42c3d",
+        "android_client_info": {
+          "package_name": "br.com.stoica.todo_list"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWSiaqsmeUfaB4YaK4CWFbmGfYUJwS_h4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
