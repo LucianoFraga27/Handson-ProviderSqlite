@@ -34,8 +34,20 @@ class LoginPage extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              TextButton(onPressed: (){}, child: const Text("Esqueceu sua senha?")),
-                              ElevatedButton(onPressed: () {}, child: const Text("Login"))
+                              TextButton(
+                                  onPressed: () {},
+                                  child: const Text("Esqueceu sua senha?")),
+                              ElevatedButton(
+                                onPressed: () {},
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text("Login"),
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20))),
+                              )
                             ],
                           )
                         ],
