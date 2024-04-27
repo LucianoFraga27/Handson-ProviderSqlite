@@ -12,7 +12,20 @@
           "package_name": "br.com.stoica.todo_list"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "180355594120-ddd8qpf03ov6apuls41dj9ksv5poispn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.stoica.todo_list",
+            "certificate_hash": "5ccf0d9149d8a95889fc449bbac35523b50a8fbf"
+          }
+        },
+        {
+          "client_id": "180355594120-rraqi1ia17phrub58g4cgq3pdemb37tb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCWSiaqsmeUfaB4YaK4CWFbmGfYUJwS_h4"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "180355594120-rraqi1ia17phrub58g4cgq3pdemb37tb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
