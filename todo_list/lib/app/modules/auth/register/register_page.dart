@@ -4,8 +4,6 @@ import 'package:todo_list/app/core/widget/todo_list_field.dart';
 import 'package:todo_list/app/core/widget/todo_list_logo.dart';
 
 class RegisterPage extends StatefulWidget {
-  
-
   RegisterPage({super.key});
 
   @override
@@ -14,6 +12,10 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
+
+  final emailEC = TextEditingController();
+  final passwordEC = TextEditingController();
+  final confirmPasswordEC = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Form (
+      body: Form(
         key: _formKey,
         child: ListView(
           children: [
@@ -60,16 +62,21 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Form(
                   child: Column(
                 children: [
-                  TodoListField(label: "Email"),
+                  TodoListField(
+                    label: "Email",
+                    controller: emailEC,
+                  ),
                   const SizedBox(height: 20),
                   TodoListField(
                     label: "Senha",
                     obscureText: true,
+                    controller: passwordEC,
                   ),
                   const SizedBox(height: 20),
                   TodoListField(
                     label: "Confirmar Senha",
                     obscureText: true,
+                    controller: confirmPasswordEC,
                   ),
                   const SizedBox(height: 20),
                   Align(
