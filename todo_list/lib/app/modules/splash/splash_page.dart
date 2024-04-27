@@ -7,6 +7,19 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
+      body: Center(
+        child: Column(
+          children: [
+            Text("Splash Page"),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).pushNamed("/login");
+              },
+              child: Text("Login"),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
