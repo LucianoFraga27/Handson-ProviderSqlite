@@ -18,11 +18,11 @@ class Messages {
   }
 
   void showInfo(String message) {
-    showMessage(message, Colors.red);
+    showMessage(message, context.primaryColor);
   }
 
   void showSuccess(String message) {
-    showMessage(message, context.primaryColor);
+    showMessage(message, Colors.green);
   }
 
   void showMessage(String message, Color color) {
