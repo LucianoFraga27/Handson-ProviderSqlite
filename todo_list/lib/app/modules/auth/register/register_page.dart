@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_list/app/core/notifier/default_listener_notifier.dart';
 import 'package:todo_list/app/core/ui/theme_extensions.dart';
 import 'package:todo_list/app/core/widget/todo_list_field.dart';
 import 'package:todo_list/app/core/widget/todo_list_logo.dart';
@@ -21,18 +22,28 @@ class _RegisterPageState extends State<RegisterPage> {
   final _confirmPasswordEC = TextEditingController();
 
   @override
+  void dispose() {
+    _emailEC.dispose();
+    _passwordEC.dispose();
+    _confirmPasswordEC.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
-    context.read<RegisterController>().addListener(() {
-      var success = context.read<RegisterController>().success;
-      var error = context.read<RegisterController>().error;
-      if (success) {
+    var defaultListener = DefaultListenerNotifier(
+        changeNotifier: context.read<RegisterController>());
+    defaultListener.listener(
+      context: context,
+      successCallBack: (notifier, listener) {
+        listener.dispose();
         Navigator.of(context).pop();
-      } else if (error != null && error.isNotEmpty) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(error), backgroundColor: Colors.red,));
-      }
-    });
+      },
+      errorCallBack: (notifier, listener) {
+       // print("Ocorreu erro");
+      },
+    );
   }
 
   @override
@@ -104,7 +115,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       obscureText: true,
                       controller: _confirmPasswordEC,
                       validator: Validatorless.multiple([
-                        Validatorless.required("Confirmação de senha obrigatória"),
+                        Validatorless.required(
+                            "Confirmação de senha obrigatória"),
                         Validatorless.compare(
                             _passwordEC, "As senhas não coincidem")
                       ]),
