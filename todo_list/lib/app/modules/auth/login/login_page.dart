@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailEC = TextEditingController();
   final _passwordEC = TextEditingController();
-
+  final _emailFocus = FocusNode();
   @override
   void dispose() {
     _emailEC.dispose();
@@ -35,7 +35,14 @@ class _LoginPageState extends State<LoginPage> {
         .listener(
       context: context,
       successCallBack: (notifier, listener) {
-        print("Sucesso ao fazer login!!!!!!!!!!!!!!!!");
+      //  print("Sucesso ao fazer login!!!!!!!!!!!!!!!!");
+      },
+      everCallBack: (notifier, listener) {
+        if (notifier is LoginController) {
+          if (notifier.hasInfo) {
+            Messages.of(context).showInfo(notifier.infoMessage!);
+          }
+        }
       },
     );
   }
@@ -67,6 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                           TodoListField(
                             label: "Email",
                             controller: _emailEC,
+                            focusNode: _emailFocus,
                             validator: Validatorless.multiple(
                               [
                                 Validatorless.required("Email obrigatório"),
@@ -91,7 +99,17 @@ class _LoginPageState extends State<LoginPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    final email = _emailEC.text;
+                                    if (email.isNotEmpty) {
+                                      context.read<LoginController>().forgotPassword(email);
+                                    } else {
+                                      _emailFocus.requestFocus();
+                                      Messages.of(context).showInfo("Digite um email para recuperar sua senha");
+                                    }
+
+
+                                  },
                                   child: const Text("Esqueceu sua senha?")),
                               ElevatedButton(
                                 onPressed: () {

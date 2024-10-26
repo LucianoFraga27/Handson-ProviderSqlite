@@ -18,7 +18,7 @@ class UserRepositoryImpl implements UserRepository {
     } on FirebaseAuthException catch (e, s) {
       print(e);
       print(s);
-      if (e.code == "email-already-in-user") {
+      if (e.code == "email-already-in-use") {
         final loginTypes =
             await _firebaseAuth.fetchSignInMethodsForEmail(email);
         if (loginTypes.contains("password")) {
@@ -41,17 +41,45 @@ class UserRepositoryImpl implements UserRepository {
       final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
       return userCredential.user;
-    } on PlatformException catch (e,s) {
+    } on PlatformException catch (e, s) {
       print(e);
       print(s);
       throw AuthException(message: e.message ?? "Erro ao realizar Login");
     } on FirebaseAuthException catch (e, s) {
       print(e);
       print(s);
-      if (e.code == 'wrong-password' || e.code == 'user-not-found' || e.code == 'invalid-credential') { 
-        throw AuthException(message: 'Login ou senha inválidos'); }
+      if (e.code == 'wrong-password' ||
+          e.code == 'user-not-found' ||
+          e.code == 'invalid-credential') {
+        throw AuthException(message: 'Login ou senha inválidos');
+      }
 
       throw AuthException(message: e.message ?? "Erro ao realizar Login");
+    }
+  }
+
+  @override
+  Future<void> forgotPassword (String email) async {
+    try {
+      final loginMethods =
+          await _firebaseAuth.fetchSignInMethodsForEmail(email);
+
+      if (loginMethods.contains("password")) {
+        await _firebaseAuth.sendPasswordResetEmail(email: email);
+      } else if (loginMethods.contains("google")) {
+        throw AuthException(
+            message:
+                "Cadastro Realizado com o Google não pode ser resetado a senha");
+      } else {
+        throw AuthException(
+            message:
+                "Email não encontrado");
+      }
+    } on PlatformException catch (e, s) {
+      print(e);
+      print(s);
+      throw AuthException(
+          message: e.message ?? "Erro ao realizar resetar senha");
     }
   }
 }
