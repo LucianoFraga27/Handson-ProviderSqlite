@@ -4,7 +4,6 @@ import 'package:todo_list/app/exceptions/auth_exception.dart';
 import 'package:todo_list/app/services/user/user_service.dart';
 
 class LoginController extends DefaultChangeNotifier {
- 
   final UserService _userService;
   String? infoMessage;
 
@@ -33,10 +32,10 @@ class LoginController extends DefaultChangeNotifier {
     }
   }
 
-  void forgotPassword (String email) async {
-     try {
+  void forgotPassword(String email) async {
+    try {
       super.showLoadingAndResetState();
-       infoMessage = null;
+      infoMessage = null;
       super.notifyListeners();
       await _userService.forgotPassword(email);
       infoMessage = "Reset de senha enviado para seu email";
@@ -44,7 +43,7 @@ class LoginController extends DefaultChangeNotifier {
       if (e is AuthException) {
         setError(e.message);
       } else {
-         setError("Erro ao resetar a senha");
+        setError("Erro ao resetar a senha");
       }
     } finally {
       super.hideLoading();
@@ -52,4 +51,27 @@ class LoginController extends DefaultChangeNotifier {
     }
   }
 
+  Future<void> loginGoogle() async {
+    try {
+      super.showLoadingAndResetState();
+      infoMessage = null;
+      super.notifyListeners();
+      final user = await _userService.googleLogin();
+      if (user != null) {
+        success();
+      } else {
+        setError("Erro ao relizazer login contra google");
+      }
+    } catch (e) {
+      _userService.googleLogout();
+      if (e is AuthException) {
+        setError(e.message);
+      } else {
+        setError("Erro ao relizazer login contra google");
+      }
+    } finally {
+      super.hideLoading();
+      super.notifyListeners();
+    }
+  }
 }
