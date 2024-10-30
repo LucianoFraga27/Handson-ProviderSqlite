@@ -63,7 +63,7 @@ class LoginController extends DefaultChangeNotifier {
         setError("Erro ao relizazer login contra google");
       }
     } catch (e) {
-      _userService.googleLogout();
+      _userService.logout();
       if (e is AuthException) {
         setError(e.message);
       } else {
