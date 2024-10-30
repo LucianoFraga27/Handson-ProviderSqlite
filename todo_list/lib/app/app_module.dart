@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/app/app_widget.dart';
+import 'package:todo_list/app/core/auth/auth_provider.dart';
 import 'package:todo_list/app/core/database/sqlite_connection_factory.dart';
 import 'package:todo_list/app/repositories/user/user_repository.dart';
 import 'package:todo_list/app/repositories/user/user_repository_impl.dart';
@@ -20,7 +21,10 @@ class AppModule extends StatelessWidget {
         lazy: false, // lazy false significa que desejamos que o app crie suas migrations assim que executado
         ),
         Provider<UserRepository>(create: (context) => UserRepositoryImpl(firebaseAuth: context.read()),),
-        Provider<UserService>(create: (context) => UserServiceImpl(userRepository: context.read()),)
+        Provider<UserService>(create: (context) => UserServiceImpl(userRepository: context.read()),),
+        ChangeNotifierProvider (create: (context)=> AuthProviderTODOLIST (firebaseAuth: context.read(), userService: context.read())..loadListener(),
+        lazy: false // Quero que o app crie esse provider no momento que inicializado
+        ),
       ],
       child: const AppWidget()
     );
