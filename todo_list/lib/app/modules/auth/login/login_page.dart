@@ -35,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
         .listener(
       context: context,
       successCallBack: (notifier, listener) {
-      //  print("Sucesso ao fazer login!!!!!!!!!!!!!!!!");
+        //  print("Sucesso ao fazer login!!!!!!!!!!!!!!!!");
       },
       everCallBack: (notifier, listener) {
         if (notifier is LoginController) {
@@ -70,76 +70,74 @@ class _LoginPageState extends State<LoginPage> {
                       child: Form(
                           key: _formKey,
                           child: Column(
-                        children: [
-                          TodoListField(
-                            label: "Email",
-                            controller: _emailEC,
-                            focusNode: _emailFocus,
-                            validator: Validatorless.multiple(
-                              [
-                                Validatorless.required("Email obrigatório"),
-                                Validatorless.email("Email inválido"),
-                              ]
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          TodoListField(
-                            label: "Senha",
-                            controller: _passwordEC,
-                            obscureText: true,
-                            validator: Validatorless.multiple(
-                              [
-                                Validatorless.required("Senha obrigatória"),
-                                Validatorless.min(6,"Senha deve conter ao menos 6 caracteres"),
-                              ]
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              TextButton(
-                                  onPressed: () {
-                                    final email = _emailEC.text;
-                                    if (email.isNotEmpty) {
-                                      context.read<LoginController>().forgotPassword(email);
-                                    } else {
-                                      _emailFocus.requestFocus();
-                                      Messages.of(context).showInfo("Digite um email para recuperar sua senha");
-                                    }
-
-
-                                  },
-                                  child: const Text("Esqueceu sua senha?")),
-                              ElevatedButton(
-                                onPressed: () {
-                                  final formValid = _formKey.currentState?.validate() ?? false;
-                                  if (formValid) {
-                                    final email = _emailEC.text;
-                                    final password = _passwordEC.text ; 
-                                    context.read<LoginController>().login( email,password );
-
-                                  }
-
-                                    
-
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20))),
-                                child: const Padding(
-                                  padding: EdgeInsets.all(10.0),
-                                  child: Text(
-                                    "Login",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
+                              TodoListField(
+                                label: "Email",
+                                controller: _emailEC,
+                                focusNode: _emailFocus,
+                                validator: Validatorless.multiple([
+                                  Validatorless.required("Email obrigatório"),
+                                  Validatorless.email("Email inválido"),
+                                ]),
+                              ),
+                              const SizedBox(height: 20),
+                              TodoListField(
+                                label: "Senha",
+                                controller: _passwordEC,
+                                obscureText: true,
+                                validator: Validatorless.multiple([
+                                  Validatorless.required("Senha obrigatória"),
+                                  Validatorless.min(6,
+                                      "Senha deve conter ao menos 6 caracteres"),
+                                ]),
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  TextButton(
+                                      onPressed: () {
+                                        final email = _emailEC.text;
+                                        if (email.isNotEmpty) {
+                                          context
+                                              .read<LoginController>()
+                                              .forgotPassword(email);
+                                        } else {
+                                          _emailFocus.requestFocus();
+                                          Messages.of(context).showInfo(
+                                              "Digite um email para recuperar sua senha");
+                                        }
+                                      },
+                                      child: const Text("Esqueceu sua senha?")),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      final formValid =
+                                          _formKey.currentState?.validate() ??
+                                              false;
+                                      if (formValid) {
+                                        final email = _emailEC.text;
+                                        final password = _passwordEC.text;
+                                        context
+                                            .read<LoginController>()
+                                            .login(email, password);
+                                      }
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20))),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(10.0),
+                                      child: Text(
+                                        "Login",
+                                      ),
+                                    ),
+                                  )
+                                ],
                               )
                             ],
-                          )
-                        ],
-                      )),
+                          )),
                     ),
                     const SizedBox(height: 20),
                     Expanded(
@@ -157,12 +155,9 @@ class _LoginPageState extends State<LoginPage> {
                               shape: OutlineInputBorder(
                                   borderSide: BorderSide.none,
                                   borderRadius: BorderRadius.circular(30)),
-                              text: "Continue com o Google",
-                              onPressed: () {
-
-                                context.read<LoginController>().loginGoogle();
-
-                              }),
+                              text: "Continue com o Google", onPressed: () {
+                            context.read<LoginController>().loginGoogle();
+                          }),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
