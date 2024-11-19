@@ -13,14 +13,20 @@ import 'package:todo_list/app/modules/tasks/tasks_module.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  void _goToCreateTask (BuildContext context) {
-    // Navigator.of(context).pushNamed("/task/create");
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => TasksModule().getPage("/task/create", context)
+  void _goToCreateTask(BuildContext context) {
+    Navigator.of(context).push(PageRouteBuilder(
+      transitionDuration: const Duration(microseconds: 400),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        // https://www.youtube.com/watch?v=d0wsoY6meBY
+        animation = CurvedAnimation(parent: animation, curve: Curves.easeInQuad);
+        return ScaleTransition(
+            scale: animation, alignment: Alignment.bottomRight, child: child);
+      },
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return TasksModule().getPage("/task/create", context);
+      },
     ));
   }
-
 
   @override
   Widget build(BuildContext context) {
