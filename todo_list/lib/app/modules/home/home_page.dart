@@ -10,6 +10,11 @@ import 'package:todo_list/app/modules/home/widgets/home_week_filter.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  void _goToCreateTask (BuildContext context) {
+    Navigator.of(context).pushNamed("/task/create");
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +32,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () => _goToCreateTask(context),
           backgroundColor: context.primaryColor,
           child: const Icon(
             Icons.add,
