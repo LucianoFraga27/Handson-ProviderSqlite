@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/app/core/ui/theme_extensions.dart';
+import 'package:todo_list/app/modules/home/widgets/todo_card_filter.dart';
 
 class HomeFilters extends StatefulWidget {
 
@@ -16,31 +17,19 @@ class _HomeFiltersState extends State<HomeFilters> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text("FILTROS",style: context.titleStyle,),
-          SizedBox(height: 10),
-          SingleChildScrollView(
+          const SizedBox(height: 10),
+          const SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(color: Colors.red, width: 100,height: 100),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(color: Colors.blue, width: 100,height: 100),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(color: Colors.green, width: 100,height: 100),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(color: Colors.yellow, width: 100,height: 100),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(color: Colors.red, width: 100,height: 100),
-                ),
+                TodoCardFilter(),
+                TodoCardFilter(),
+                TodoCardFilter(),
+                TodoCardFilter(),
+                TodoCardFilter(),
+                TodoCardFilter(),
+                TodoCardFilter(),
+                TodoCardFilter(),
               ],
             ),
           )
