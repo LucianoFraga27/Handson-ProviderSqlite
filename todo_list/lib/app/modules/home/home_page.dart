@@ -26,32 +26,36 @@ class HomePage extends StatelessWidget {
             )
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          backgroundColor: context.primaryColor,
+          child: const Icon(Icons.add),
+        ),
         drawer: HomeDrawer(),
         body: LayoutBuilder(
           builder: (context, constraints) {
             return SingleChildScrollView(
               child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                      minHeight: constraints.maxHeight,
-                      minWidth: constraints.maxWidth),
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                        ),
-                        child: const IntrinsicHeight(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              HomeHeader(),
-                              HomeFilters(),
-                              HomeWeekFilter(),
-                              HomeTasks()
-                            ],
-                          ),
-                        ),
-
-                      ),),
-                      
+                constraints: BoxConstraints(
+                    minHeight: constraints.maxHeight,
+                    minWidth: constraints.maxWidth),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                  ),
+                  child: const IntrinsicHeight(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        HomeHeader(),
+                        HomeFilters(),
+                        HomeWeekFilter(),
+                        HomeTasks()
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             );
           },
         ));
